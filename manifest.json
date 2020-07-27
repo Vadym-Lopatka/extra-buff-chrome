@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "name": "Your paste",
+  "description": "The smartest buffer of yours copies(Ctrl + C)",
+  "icons": {
+    "48": "icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "commands": {
+    "Ctrl+C": {
+      "suggested_key": {
+        "windows": "Ctrl+C",
+        "mac": "Command+C",
+        "chromeos": "Ctrl+C",
+        "linux": "Ctrl+C"
+      },
+      "description": "Copy selected text to an extra buffer"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "contextMenus",
+    "notifications",
+    "activeTab"
+  ]
+}
