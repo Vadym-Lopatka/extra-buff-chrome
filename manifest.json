@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "version": "0.0.1",
-  "name": "Your paste",
+  "name": "Extra Buff",
   "description": "The smartest buffer of yours copies(Ctrl + C)",
   "icons": {
     "48": "icon.png"
