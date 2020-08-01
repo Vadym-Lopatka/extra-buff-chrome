@@ -1,3 +1,4 @@
+const bufferName = 'my-buff'
 chrome.commands.onCommand.addListener(function (cmd) {
     if (cmd == "Ctrl+C") {
         addToBuffer()
@@ -22,22 +23,26 @@ var funcToInject = function () {
 var jsCodeStr = ';(' + funcToInject + ')();';
 
 function addToBuffer() {
+
     chrome.tabs.executeScript(
         {code: jsCodeStr, allFrames: true}, function (selectedTextPerFrame) {
 
             if (chrome.runtime.lastError) {
                 alert('ERROR:\n' + chrome.runtime.lastError.message);
-
-            } else if ((selectedTextPerFrame.length > 0) && (typeof (selectedTextPerFrame[0]) === 'string')) {
-
-                const theValue = selectedTextPerFrame[0]
-                chrome.storage.sync.set({'my-buff': theValue}, function () {
-                        console.log('Value is set to: ' + theValue);
-                    }
-                );
+            } else if (isSelectedTextValid(selectedTextPerFrame)) {
+                addValueToBuff(selectedTextPerFrame[0])
             }
         }
     );
+
+    function isSelectedTextValid(selectedTextPerFrame) {
+        return (selectedTextPerFrame.length > 0) && (typeof (selectedTextPerFrame[0]) === 'string')
+    }
+
+    function addValueToBuff(theValue) {
+        chrome.storage.sync.set({'my-buff': theValue}, function () {
+                console.log('Value is set to: ' + theValue);
+            }
+        );
+    }
 }
-
-
