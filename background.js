@@ -3,12 +3,21 @@ chrome.commands.onCommand.addListener(function (cmd) {
         addToBuffer()
     } else if (cmd == "Ctrl+Shift+V") {
         showBuffer()
+    } else if (cmd == "Ctrl+Shift+Q") {
+        clearBuffer()
     }
 });
 
 function showBuffer() {
     chrome.storage.sync.get({list: []}, function (data) {
         console.log(data.list);
+    });
+}
+
+
+function clearBuffer() {
+    chrome.storage.sync.set({list: []}, function (data) {
+        console.log("Clear extra-buff");
     });
 }
 
