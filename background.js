@@ -1,6 +1,6 @@
 chrome.commands.onCommand.addListener(function (cmd) {
     if (cmd == "Ctrl+C") {
-        addToBuffer()
+        updateBuffer()
     } else if (cmd == "Ctrl+Shift+V") {
         showBuffer()
     } else if (cmd == "Ctrl+Shift+Q") {
@@ -14,13 +14,11 @@ function showBuffer() {
     });
 }
 
-
 function clearBuffer() {
     chrome.storage.sync.set({list: []}, function (data) {
         console.log("Clear extra-buff");
     });
 }
-
 
 /*ADD PART====================================================================*/
 var funcToInject = function () {
@@ -30,7 +28,7 @@ var funcToInject = function () {
 
 var jsCodeStr = ';(' + funcToInject + ')();';
 
-function addToBuffer() {
+function updateBuffer() {
     chrome.tabs.executeScript(
         {code: jsCodeStr, allFrames: true}, function (selectedTextPerFrame) {
 
@@ -55,7 +53,7 @@ function addToBuffer() {
     function update(array, newValue) {
         array.unshift(newValue);
         chrome.storage.sync.set({list: array}, function () {
-            console.log("added to list with new values");
+            console.log("Update extra-buff");
         });
     }
 }
