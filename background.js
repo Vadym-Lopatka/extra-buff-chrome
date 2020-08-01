@@ -1,18 +1,17 @@
-const bufferName = 'my-buff'
 chrome.commands.onCommand.addListener(function (cmd) {
     if (cmd == "Ctrl+C") {
         addToBuffer()
     } else if (cmd == "Ctrl+Shift+V") {
-        getBuffer(function (value) {
-            console.log("Buffer: " + value['my-buff'])
-        })
+        showBuffer()
     }
 });
 
-/*GET PART====================================================================*/
-function getBuffer(callback) {
-    chrome.storage.sync.get('my-buff', callback);
+function showBuffer() {
+    chrome.storage.sync.get({list: []}, function (data) {
+        console.log(data.list);
+    });
 }
+
 
 /*ADD PART====================================================================*/
 var funcToInject = function () {
@@ -23,7 +22,6 @@ var funcToInject = function () {
 var jsCodeStr = ';(' + funcToInject + ')();';
 
 function addToBuffer() {
-
     chrome.tabs.executeScript(
         {code: jsCodeStr, allFrames: true}, function (selectedTextPerFrame) {
 
@@ -40,9 +38,15 @@ function addToBuffer() {
     }
 
     function addValueToBuff(theValue) {
-        chrome.storage.sync.set({'my-buff': theValue}, function () {
-                console.log('Value is set to: ' + theValue);
-            }
-        );
+        chrome.storage.sync.get({list: []}, function (data) {
+            update(data.list, theValue);
+        });
+    }
+
+    function update(array, newValue) {
+        array.unshift(newValue);
+        chrome.storage.sync.set({list: array}, function () {
+            console.log("added to list with new values");
+        });
     }
 }
