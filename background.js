@@ -1,5 +1,4 @@
 chrome.commands.onCommand.addListener(function (cmd) {
-
     if (cmd == "Ctrl+C") {
         addToBuffer()
     } else if (cmd == "Ctrl+Shift+V") {
@@ -9,12 +8,12 @@ chrome.commands.onCommand.addListener(function (cmd) {
     }
 });
 
+/*GET PART====================================================================*/
 function getBuffer(callback) {
     chrome.storage.sync.get('my-buff', callback);
 }
 
-/*==========================================================================*/
-
+/*ADD PART====================================================================*/
 var funcToInject = function () {
     const selection = window.getSelection();
     return (selection.rangeCount > 0) ? selection.toString() : '';
@@ -32,12 +31,10 @@ function addToBuffer() {
             } else if ((selectedTextPerFrame.length > 0) && (typeof (selectedTextPerFrame[0]) === 'string')) {
 
                 const theValue = selectedTextPerFrame[0]
-
                 chrome.storage.sync.set({'my-buff': theValue}, function () {
                         console.log('Value is set to: ' + theValue);
                     }
                 );
-
             }
         }
     );
