@@ -3,13 +3,13 @@ chrome.commands.onCommand.addListener(function (cmd) {
     if (cmd == "Ctrl+C") {
         addToBuffer()
     } else if (cmd == "Ctrl+Shift+V") {
-        showBuffer(function (value) {
+        getBuffer(function (value) {
             console.log("Buffer: " + value['my-buff'])
         })
     }
 });
 
-function showBuffer(callback) {
+function getBuffer(callback) {
     chrome.storage.sync.get('my-buff', callback);
 }
 
