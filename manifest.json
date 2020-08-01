@@ -18,9 +18,19 @@
         "linux": "Ctrl+C"
       },
       "description": "Copy selected text to an extra buffer"
+    },
+    "Ctrl+Shift+V": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V",
+        "chromeos": "Ctrl+Shift+V",
+        "linux": "Ctrl+Shift+V"
+      },
+      "description": "Show storage buffer"
     }
   },
   "permissions": [
+    "storage",
     "tabs",
     "contextMenus",
     "notifications",
