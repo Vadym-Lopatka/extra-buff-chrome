@@ -1,2 +1,39 @@
 {
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "name": "Extra Buff",
+  "description": "The smartest buffer of yours copies(Ctrl + C)",
+  "icons": {
+    "48": "icon.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "commands": {
+    "Ctrl+C": {
+      "suggested_key": {
+        "windows": "Ctrl+C",
+        "mac": "Command+C",
+        "chromeos": "Ctrl+C",
+        "linux": "Ctrl+C"
+      },
+      "description": "Copy selected text to an extra buffer"
+    },
+    "Ctrl+Shift+V": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V",
+        "chromeos": "Ctrl+Shift+V",
+        "linux": "Ctrl+Shift+V"
+      },
+      "description": "Show storage buffer"
+    }
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "contextMenus",
+    "notifications",
+    "activeTab"
+  ]
 }
